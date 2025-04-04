@@ -1,9 +1,8 @@
-// quectel_xyz_mapper.h
-
-
+#pragma once
+#include <optional>
 #include <string>
 
-// Enum for Quectel API states
+// Quectel states
 enum QuectelState {
     SUCCEED,
     UPDATE,
@@ -13,20 +12,15 @@ enum QuectelState {
     CANCEL
 };
 
-
-// Mapper class that maps Quectel states to XYZ strings
-class QuectelToHarmanMapper {
-public:
-    std::string getHarmanState(QuectelState state){
-        switch (state) {
-            case SUCCEED: return "Success";
-            case UPDATE: return "INACTIVE UPDATE";
-            case WRITEDONE: return "IMPROPER WRITE";
-            case SYNC_PENDING: return "SYNC IN PROGRESS";
-            case BACKUP: return "PERFORMING BACKUP";
-            case CANCEL: return "Cancel";
-            default: return "Invalid State";
-        }
-    }
+// XYZ states
+enum HarmanState {
+    Success_Done,
+    Inactive_Update,
+    Improper_Write,
+    Sync_In_Progress,
+    Performing_Backup,
+    CancelXYZ
 };
 
+// Function declaration
+std::optional<std::string> MapQuectelStateToHarmanState(int userChoice);

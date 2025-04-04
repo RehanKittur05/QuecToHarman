@@ -1,22 +1,37 @@
-#include <iostream>
 #include "quectel_xyz_mapper.h"
+#include <iostream>
+#include<optional>
+#include <unordered_map>
 
-
-int main() {
-    int userChoice;
-    std::cout << "Enter a choice (0: SUCCEED, 1: UPDATE, 2: WRITEDONE, 3: SYNC_PENDING, 4: BACKUP, 5: CANCEL): ";
-    std::cin >> userChoice;
-
+std::optional<std::string> MapQuectelStateToHarmanState(int userChoice) {
+    // same implementation
     if (userChoice < 0 || userChoice > 5) {
-        std::cout << "Invalid choice. Please enter a number between 0 and 5.\n";
-        return 1;
+        return std::nullopt;
     }
 
-    QuectelToHarmanMapper mapper;
-    QuectelState state = static_cast<QuectelState>(userChoice);
+    QuectelState selectedState = static_cast<QuectelState>(userChoice);
 
-    std::string harmanState = mapper.getHarmanState(state);
-    std::cout << "Mapped Harman State: " << harmanState << std::endl;
+    std::unordered_map<QuectelState, HarmanState> stateMapping = {
+        {SUCCEED, Success_Done},
+        {UPDATE, Inactive_Update},
+        {WRITEDONE, Improper_Write},
+        {SYNC_PENDING, Sync_In_Progress},
+        {BACKUP, Performing_Backup},
+        {CANCEL, CancelXYZ}
+    };
 
-    return 0;
+    std::unordered_map<HarmanState, std::string> harmanStateStrings = {
+        {Success_Done, "Success_Done"},
+        {Inactive_Update, "Inactive_Update"},
+        {Improper_Write, "Improper_Write"},
+        {Sync_In_Progress, "Sync_In_Progress"},
+        {Performing_Backup, "Performing_Backup"},
+        {CancelXYZ, "Cancel"}
+    };
+
+    HarmanState mappedState = stateMapping[selectedState];
+    return harmanStateStrings[mappedState];
 }
+
+// You can define main() here too
+
