@@ -12,37 +12,20 @@ enum QuectelState {
     BACKUP,
     CANCEL
 };
-std::string success_done(){
- return "Success";
-}
-std::string inactive_update(){
-    return "INACTIVE UPDATE";
-}
-std::string improper_write(){
-    return "IMPROPER WRITE";
-}
-std::string sync_in_progress(){
-    return "SYNC IN PROGRESS";
-}
-std::string perform_backup(){
-    return "PERFORMING BACKUP";
-}
-std::string cancel(){
-    return "Cancel";
-}
+
 
 // Mapper class that maps Quectel states to XYZ strings
 class QuectelToHarmanMapper {
 public:
     std::string getHarmanState(QuectelState state){
         switch (state) {
-            case SUCCEED: return success_done();
-            case UPDATE: return inactive_update();
-            case WRITEDONE: return improper_write();
-            case SYNC_PENDING: return sync_in_progress();
-            case BACKUP: return perform_backup();
-            case CANCEL: return cancel();
-            // default: return "Invalid State";
+            case SUCCEED: return "Success";
+            case UPDATE: return "INACTIVE UPDATE";
+            case WRITEDONE: return "IMPROPER WRITE";
+            case SYNC_PENDING: return "SYNC IN PROGRESS";
+            case BACKUP: return "PERFORMING BACKUP";
+            case CANCEL: return "Cancel";
+            default: return "Invalid State";
         }
     }
 };
