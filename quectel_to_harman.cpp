@@ -12,11 +12,11 @@ int main() {
         return 1;
     }
 
-    QuectelToXYZMapper mapper;
+    QuectelToHarmanMapper mapper;
     QuectelState state = static_cast<QuectelState>(userChoice);
 
-    std::string xyzState = mapper.getXYZState(state);
-    std::cout << "Mapped XYZ State: " << xyzState << std::endl;
+    std::string harmanState = mapper.getHarmanState(state);
+    std::cout << "Mapped Harman State: " << harmanState << std::endl;
 
     return 0;
 }

@@ -32,9 +32,9 @@ std::string cancel(){
 }
 
 // Mapper class that maps Quectel states to XYZ strings
-class QuectelToXYZMapper {
+class QuectelToHarmanMapper {
 public:
-    std::string getXYZState(QuectelState state){
+    std::string getHarmanState(QuectelState state){
         switch (state) {
             case SUCCEED: return success_done();
             case UPDATE: return inactive_update();
