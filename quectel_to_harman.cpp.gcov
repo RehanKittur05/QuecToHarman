@@ -1,0 +1,41 @@
+        -:    0:Source:quectel_to_harman.cpp
+        -:    0:Graph:./test_app-quectel_to_harman.gcno
+        -:    0:Data:./test_app-quectel_to_harman.gcda
+        -:    0:Runs:4
+        -:    1:#include "quectel_xyz_mapper.h"
+        -:    2:#include <iostream>
+        -:    3:#include<optional>
+        -:    4:#include <unordered_map>
+        -:    5:
+       44:    6:std::optional<std::string> MapQuectelStateToHarmanState(int userChoice) {
+        -:    7:    // same implementation
+       44:    8:    if (userChoice < 0 || userChoice > 5) {
+       16:    9:        return std::nullopt;
+        -:   10:    }
+        -:   11:
+       28:   12:    QuectelState selectedState = static_cast<QuectelState>(userChoice);
+        -:   13:
+        -:   14:    std::unordered_map<QuectelState, HarmanState> stateMapping = {
+        -:   15:        {SUCCEED, Success_Done},
+        -:   16:        {UPDATE, Inactive_Update},
+        -:   17:        {WRITEDONE, Improper_Write},
+        -:   18:        {SYNC_PENDING, Sync_In_Progress},
+        -:   19:        {BACKUP, Performing_Backup},
+        -:   20:        {CANCEL, CancelXYZ}
+       56:   21:    };
+        -:   22:
+        -:   23:    std::unordered_map<HarmanState, std::string> harmanStateStrings = {
+    #####:   24:        {Success_Done, "Success_Done"},
+    #####:   25:        {Inactive_Update, "Inactive_Update"},
+    #####:   26:        {Improper_Write, "Improper_Write"},
+    #####:   27:        {Sync_In_Progress, "Sync_In_Progress"},
+    #####:   28:        {Performing_Backup, "Performing_Backup"},
+    #####:   29:        {CancelXYZ, "Cancel"}
+      224:   30:    };
+        -:   31:
+       28:   32:    HarmanState mappedState = stateMapping[selectedState];
+       28:   33:    return harmanStateStrings[mappedState];
+       56:   34:}
+        -:   35:
+        -:   36:// You can define main() here too
+        -:   37:
